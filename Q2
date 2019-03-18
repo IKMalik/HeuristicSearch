@@ -1,17 +1,37 @@
 import java.util.*;
 import java.io.*;
 
-public class TSP
+public class testing
 {
-    private  ArrayList<Integer> tour;
-    
     public static void main(String[] args)
     {
         Double[][] dist = { {0.0, 3.0, 4.0, 5.0},{3.0, 0.0, 2.0, 2.5}, {4.0, 2.0, 0.0, 1.5}, {5.0, 2.5, 1.5, 0.0} };
         
-        TSP solution = RMHC(dist, 20);
-        System.out.println(solution.GetTour());
+        System.out.println(Arrays.toString(SolutionTSP(dist, 50)));
+   
     }
+    public static int[] SolutionTSP(Double[][] distances, int iter)
+    {
+        TSP sol = new TSP(distances);
+        
+        sol = sol.RMHC(distances, iter);
+        
+        ArrayList<Integer> res = sol.GetTour();
+        
+        int[] result = new int[res.size()];
+        
+        for (int i = 0; i < res.size(); i++) {
+            result[i] = res.get(i);
+        }
+        
+        return result;
+    }
+    
+}
+
+class TSP
+{
+    private  ArrayList<Integer> tour;
     
     public TSP(Double[][] distances)
     {
